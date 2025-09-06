@@ -13,22 +13,29 @@ cpf VARCHAR(11) UNIQUE NOT NULL
 
 INSERT INTO Usuario (email, nome, senha, telefone, cpf) VALUES
 	('eduardo.nascimento@sptech.school', 'Eduardo Nascimento', 'Urubu100', '11937061684', '33688622666'),
-    ('lucas.peres@sptech.school', 'Lucas Peres', 'Lp_2006', '11973239898', '55708075856');
+    ('lucas.peres@sptech.school', 'Lucas Peres', 'Lp_2006', '11973239898', '55708075856'),
+    ('arthur.rfreitas@sptech.scholl', 'Arthur Rodrigues', 'test0000', '11000000000', '10000000000'),
+    ('cintia.azevedo@sptech.scholl', 'Cintia Miranda', 'test0001', '11000000001', '10000000001'),
+    ('everton.silva@sptech.scholl', 'Everton Barbosa', 'test0002', '11000000002', '10000000002'),
+    ('igor.fonseca@sptech.scholl', 'Igor Ruy', 'test0003', '11000000003', '10000000003');
     
 
 SELECT * FROM Usuario;
+
 SELECT nome AS 'Nome completo',
 		email AS 'Email cadastrado',
         telefone AS 'Telefone cadastrado',
         cpf AS 'CPF cadastrado'
-        FROM Usuario;
+        FROM Usuario
+        ORDER BY nome;
         
 SELECT * FROM Usuario
 	WHERE cpf = '55708075856';
+    
+SELECT * FROM Usuario
+	WHERE telefone = '11937061684';
 
-
-
-
+-- ---------------------------------- --
 
 CREATE TABLE Empresa (
 idEmpresa INT PRIMARY KEY AUTO_INCREMENT,
@@ -39,78 +46,91 @@ email VARCHAR(50) UNIQUE NOT NULL
 
 INSERT INTO Empresa (CNPJ, razãoSocial, email) VALUES
 	('42599543000117', 'Itau Unibanco', 'itaubanco@empresarial'),
-    ('84224447000134', 'Casas Bahia', 'casasbahia@vendas');
+    ('84224447000134', 'Casas Bahia', 'casasbahia@vendas'),
+    ('00000000000001', 'Btg Pactual', 'btgpactual@empresarial'),
+    ('00000000000002', 'Americanas', 'americanas@vendas'),
+    ('00000000000003', 'Avanade', 'avanade@empresarial');
     
     
 SELECT * FROM Empresa;
+
 SELECT idEmpresa AS 'Número de cadastro',
 		CNPJ AS 'CNPJ da empresa',
 		razãoSocial AS 'Razão Social da empresa',
 		email AS 'Email cadastrado'
         FROM empresa;
+        
+SELECT * FROM empresa
+	WHERE email LIKE '%@empresarial';
+    
+SELECT * FROM empresa
+	WHERE email LIKE '%@vendas';
 
-
-
+-- ----------------------------- --
 
 CREATE TABLE sensor (
-idSensor INT PRIMARY KEY AUTO_INCREMENT,
+idRegistro INT PRIMARY KEY AUTO_INCREMENT,
 dtRegistro DATETIME DEFAULT CURRENT_TIMESTAMP,
-niveldePPM FLOAT
+niveldePPM FLOAT,
+identificador INT NOT NULL,
+localSensor VARCHAR(30) NOT NULL
 );
 
-INSERT INTO sensor (niveldePPM) VALUES
-	(20);
+INSERT INTO sensor (niveldePPM, identificador, localSensor) VALUES
+	(20, 1, 'Camera fria 15, parede 2'),
+	(50, 2, 'Camera fria 12, parede 1'),
+	(30, 3, 'Camera fria 09, parede 3'),
+	(22, 1, 'Camera fria 15, parede 2'),
+	(51, 2, 'Camera fria 12, parede 1'),
+	(37, 3, 'Camera fria 09, parede 3'),
+	(24, 1, 'Camera fria 15, parede 2'),
+	(52, 2, 'Camera fria 12, parede 1'),
+	(44, 3, 'Camera fria 09, parede 3'),
+    (26, 1, 'Camera fria 15, parede 2'),
+	(53, 2, 'Camera fria 12, parede 1'),
+	(51, 3, 'Camera fria 09, parede 3');
     
 SELECT * FROM sensor;
-
-INSERT INTO sensor (niveldePPM) VALUES
-	(50);
     
 SELECT * FROM sensor;
 SELECT dtRegistro AS 'Data e hora do registro',
-		niveldePPM AS 'Concentração do gás em PPM'
+		niveldePPM AS 'Concentração do gás em PPM',
+        identificador AS 'Identificador do Sensor',
+        localSensor AS 'Local do Sensor'
         FROM sensor;
         
 SELECT * FROM sensor
-	WHERE dtRegistro = '2025-08-26 20:47:00';
+	WHERE dtRegistro > '2025-08-28 00:00:00' AND dtRegistro < '2025-08-29 00:00:00';
     
-INSERT INTO sensor (niveldePPM) VALUES
-	(80);
+SELECT * FROM sensor
+	WHERE identificador = 1;
     
-INSERT INTO sensor (niveldePPM) VALUES
-	(100);
+SELECT * FROM sensor
+	WHERE identificador = 2;
+    
+SELECT * FROM sensor
+	WHERE identificador = 3;
     
 SELECT niveldePPM AS 'Concentração do gás em PPM',
-		dtRegistro AS 'Data e hora do registro'
+		dtRegistro AS 'Data e hora do registro',
+        identificador AS 'Identificador do Sensor',
+        localSensor AS 'Local do Sensor'
         FROM sensor
         WHERE niveldePPM >= 50;
         
-        
-        
-
-CREATE TABLE nvlAmonia (
-idAmonia INT PRIMARY KEY AUTO_INCREMENT,
-minPpm FLOAT,
-maxPpm FLOAT,
-nvlAlerta VARCHAR(20),
-CONSTRAINT chknvlAlerta 
-	CHECK(nvlAlerta IN ('Baixo', 'Médio', 'Alto', 'Crítico', 'Fatal'))
-);
-
-INSERT INTO nvlAmonia (minPpm, maxPpm, nvlAlerta) VALUES
-	(0, 25, 'Baixo'),
-    (26, 50, 'Médio'),
-    (50, 100, 'Alto'),
-    (100, 500, 'Crítico'),
-    (2500, 5000, 'Fatal');
-    
-    
-    SELECT nvlAlerta AS 'Nivel de risco',
-			maxPpm AS 'Concentração maxima'
-            FROM nvlAMonia;
+SELECT  identificador AS 'Identificador do Sensor',
+		dtRegistro AS 'Data e hora do registro',
+        localSensor AS 'Local do Sensor',
+        niveldePPM AS 'Concentração do gás em PPM',
+        CASE
+			WHEN niveldePPM = 0  THEN 'Zero'
+			WHEN niveldePPM > 0 AND niveldePPM < 25 THEN 'Baixo'
+			WHEN niveldePPM >= 25 AND niveldePPM < 50 THEN 'Médio'
+			WHEN niveldePPM >= 50 AND niveldePPM < 100 THEN 'Alto'
+			WHEN niveldePPM >= 100 AND niveldePPM < 500 THEN 'Crítico'
+			WHEN niveldePPM >= 500 THEN 'Fatal'
+		END as 'Classificação'
+        FROM sensor;
             
-	
-    
-	
-    
+-- ------------------------------ --
     
