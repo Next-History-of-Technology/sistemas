@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="estilização.css">
+</head>
+<body>
+    <div>
+    <h1 class="titulo">Simulador financeiro</h1>
+    
+
+    <br>
+
+    <h3>Simulação de prejuízo anual</h3>
+    
+    <label for="ipt_qtd">Insira a quantidade de vazamentos por ano:</label>
+    <input type="number" placeholder="Exemplo: 2" id="ipt_qtd">
+    <br>
+    <br>
+    <label for="ipt_receita">Insira o lucro líquido anual da sua empresa (em milhões):</label>
+    <input type="number" placeholder="Exemplo: 88" id="ipt_lucroLiquido">
+    <br>
+    <br>
+
+
+    <button onclick="provavel()">Calculo provável</button>
+    <br>
+        <div id="div_simulacao"></div>
+        <div id="div_limpo"></div>
+    <br>
+    <br>
+
+    <button onclick="Limpar()">Limpar simulação</button>
+    <br>
+    <br>
+    <br>
+
+    
+
+</div>
+
+
+</body>
+</html>
+<script>
+
+    function provavel() {
+        // Calculo de prejuizo
+        var qtd_vazamentos = Number(ipt_qtd.value);
+        var lucro = Number(ipt_lucroLiquido.value);
+        var multas_Amb = 500_000;
+        var indeni = 300_000;
+        var medico = 100_000;
+        var paraOpe = 150_000;
+        var perdaEstoque = 1_000_000;
+        var exportacao = 1_500_000;
+        var rep = 200_000;
+        var process = 350_000;
+        var totalPerVazamento = Math.round(multas_Amb + indeni + medico + paraOpe + perdaEstoque + exportacao + rep + process);
+        var total = Math.round(totalPerVazamento * qtd_vazamentos);
+        var porcentPerVazamento = Math.round((totalPerVazamento / 1_000_000 ) / lucro * 100);
+        var porcentTotal = Math.round((total / 1_000_000 ) / lucro * 100);
+
+        // Calculo de ROI
+        var prejuizo = total;
+        var tamanho = 500;
+        var alcance = 13;
+        var qtdSensores = Math.round (tamanho / alcance);
+        var hardware = 5000 * qtdSensores;
+        var instalacao = 3000;
+        var manutencaoAno = 1000;   
+        var custo = hardware + instalacao + manutencaoAno;
+        var custoTotal = Math.round(custo + (custo * 0.10)) ;
+        var valorRoi = Math.round((prejuizo - custoTotal) / custoTotal * 100);
+        var roiMonetario = Math.round((prejuizo - custoTotal) / custoTotal);
+        var ganhoLiquido = prejuizo - custoTotal;
+       
+        //
+        
+        if(qtd_vazamentos == 0 || lucro == 0){
+
+            alert("Insira os dados corretamente")
+        }else{
+        
+        div_simulacao.innerHTML = `<p><b>Em um cenário <b style="color: blue;">provavel</b> o prejuízo por conta de um unico vazamento de amônia seria de:<br><b style="color: red;">R$${totalPerVazamento} milhões por vazamento</b>, isso corresponde a <b style="color: red;">${porcentPerVazamento}%</b> do lucro anual do frigorífico.</b></p>
+            <p> Sendo: <br>
+            <b>R$${multas_Amb}</b> de multas, <b>R$${indeni}</b> de indenizações, <b>R$${medico}</b> com tratamento médico para os funcionarios, <b>R$${paraOpe}</b> por paradas de operação, <b>R$${perdaEstoque}</b> por perda de estoque, <b>R$${exportacao}</b> por impacto em exportações, <b>R$${rep}</b> por conta de perda de reputação e <b>R$${process}</b> por processos.</p>    
+            <p> O prejuízo total por conta de <b>${qtd_vazamentos}</b> vazamentos seria de <b style="color: red;">R$${total}</b> que corresponde a <b>${porcentTotal}%</b> do lucro do frigorífico. </p>
+            <p>Com isso seu frigorífico pode evitar <b style="color: red;">R$${prejuizo} em prejuízos</b></p> <p>O ROI do investimento é <b><u>${valorRoi}%</u></b>, ou seja a cada R$1 investido gera uma economia de <b style="color: green;">R$${roiMonetario}</b></p>
+        <p> Ganho líquido esperado: <b style="color: green;">R$${ganhoLiquido}</b></p>`
+        }
+    }
+    
+
+    function Limpar(){
+
+
+        div_simulacao.innerHTML = div_limpo.innerHTML
+    }
+    
+
+
+</script>
