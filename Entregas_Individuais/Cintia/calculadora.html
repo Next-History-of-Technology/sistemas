@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+     <h1>Simulador financeiro Next History Tecnology</h1><br><br>
+
+    <label for="input_qtdSensor">Informe a quantidade de sensores que precisaria para o seu frigorifico:</label><br>
+    <input type="number" id="input_qtdSensor"><br>
+
+    <button onclick="Economia()" >Ver economia</button>
+
+    <div id="div_resultado"></div>
+
+</body>
+</html>
+
+<script>
+function Economia() {
+var qtdSensor = Number(input_qtdSensor.value)
+var reputacao = 500000
+var paraOP = 150000
+var juridico =  100000
+var valorSensor = 5000 * qtdSensor 
+var totalGastos = reputacao + paraOP + juridico 
+var economia = totalGastos - valorSensor
+
+if (qtdSensor <= 0) {
+alert ("informe uma quantidade de sensores validas")
+} else {
+div_resultado.innerHTML = `
+Custos estimado com juritico = ${juridico} <br> Custos estimado com a reputação = ${reputacao} <br>
+Custos estimado com a paralização da operação = ${paraOP} <br>
+Com a aquisição do nosso sensor que custa 5.000un você irá economizar ${economia}`
+
+}
+}
+</script>
