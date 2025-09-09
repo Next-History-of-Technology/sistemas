@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador Financeiro de Frigoríficos</title>
+</head>
+<body>
+  <h2>Simulador Financeiro</h2>
+
+  <span>Custo médio de acidentes (R$): </label>
+  <br>
+  <input type="text" id="ipt_acidente">
+  <br>
+  <br>
+  <label>Perda média de mercadoria por acidente (R$): </label>
+  <br>
+  <input type="text" id="ipt_perda">
+  <br>
+  <br>
+  <span>Multa possível (R$): </span>
+  <br>
+  <input type="text" id="ipt_multa">
+  <br>
+  <br> 
+  <span>Investimento em sensores (R$): </span>
+  <br>
+  <input type="text" id="ipt_sensor">
+  <br>
+  <br>
+  <button onclick="simular()">Rodar Simulação</button>
+  <br>
+  <br>
+  <b>Resultado:</b>
+  
+  <div id="div_resultado"></div>
+
+  <script>
+    function simular() {
+      var acidente = Number(ipt_acidente.value)
+      var perda = Number(ipt_perda.value)
+      var multa = Number(ipt_multa.value)
+      var sensor = Number(ipt_sensor.value)
+      var custoSSensor = acidente + perda + multa
+      var custoCSensor = sensor
+
+      var resultado = 0
+
+      if (custoCSensor < custoSSensor) {
+        resultado = `Vale a pena investir em sensores! Economia estimada: R$ ${custoSSensor - custoCSensor}`;
+      } else {
+        resultado = `O investimento em sensores é maior que os custos de acidentes! Perda estimada: R$ ${custoCSensor - custoSSensor}`;
+      }
+
+      div_resultado.innerHTML = resultado;
+    }
+  </script>
+</body>
+</html>
