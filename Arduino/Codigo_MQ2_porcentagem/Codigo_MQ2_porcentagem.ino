@@ -21,11 +21,14 @@ void loop() {
   Serial.print("Alta:");
   Serial.print(90);
   Serial.print(" ");
+  Serial.print("Média:");
+  Serial.print(60);
+  Serial.print(" ")
   Serial.print("Concentração:");
   Serial.print(porcentagem);
   Serial.print(" ");
-  Serial.print("Baixa");
-  Seria.println(15);
+  Serial.print("Baixa:");
+  Serial.println(15);
 
 
   delay(2000);

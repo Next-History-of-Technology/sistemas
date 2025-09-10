@@ -7,12 +7,15 @@
     <link rel="stylesheet" href="estilização.css">
 </head>
 <body>
-    <div>
-    <h1 class="titulo">Simulador financeiro</h1>
-    
-
+    <div class="header">
+        <div class="titulo">
+            <img src="file:///C:/Users/Lucas%20Peres/Downloads/imagem_2025-09-03_200412929-removebg-preview.png" alt="" class="imagem">
+         <h1>Simulador financeiro</h1>
+        <span style="width: 100px;"></span>
+        </div>
+        <h2>Next History Technology</h2>
+    </div>
     <br>
-
     <h3>Simulação de prejuízo anual</h3>
     
     <label for="ipt_qtd">Insira a quantidade de vazamentos por ano:</label>
@@ -39,7 +42,7 @@
 
     
 
-</div>
+
 
 
 </body>
@@ -50,46 +53,58 @@
         // Calculo de prejuizo
         var qtd_vazamentos = Number(ipt_qtd.value);
         var lucro = Number(ipt_lucroLiquido.value);
-        var multas_Amb = 500_000;
-        var indeni = 300_000;
-        var medico = 100_000;
-        var paraOpe = 150_000;
+        var multas_Amb = 500000;
+        var indeni = 300000;
+        var medico = 100000;
+        var paraOpe = 150000;
         var perdaEstoque = 1_000_000;
         var exportacao = 1_500_000;
         var rep = 200_000;
         var process = 350_000;
-        var totalPerVazamento = Math.round(multas_Amb + indeni + medico + paraOpe + perdaEstoque + exportacao + rep + process);
-        var total = Math.round(totalPerVazamento * qtd_vazamentos);
-        var porcentPerVazamento = Math.round((totalPerVazamento / 1_000_000 ) / lucro * 100);
-        var porcentTotal = Math.round((total / 1_000_000 ) / lucro * 100);
+        var totalPerVazamento = (multas_Amb + indeni + medico + paraOpe + perdaEstoque + exportacao + rep + process);
+        var total = (totalPerVazamento * qtd_vazamentos);
+        var porcentPerVazamento = ((totalPerVazamento / 1_000_000 ) / lucro * 100);
+        var porcentTotal = ((total / 1_000_000 ) / lucro * 100);
 
         // Calculo de ROI
         var prejuizo = total;
         var tamanho = 500;
         var alcance = 13;
-        var qtdSensores = Math.round (tamanho / alcance);
+        var qtdSensores = (tamanho / alcance);
         var hardware = 5000 * qtdSensores;
         var instalacao = 3000;
         var manutencaoAno = 1000;   
         var custo = hardware + instalacao + manutencaoAno;
-        var custoTotal = Math.round(custo + (custo * 0.10)) ;
-        var valorRoi = Math.round((prejuizo - custoTotal) / custoTotal * 100);
-        var roiMonetario = Math.round((prejuizo - custoTotal) / custoTotal);
+        var custoTotal = (custo + (custo * 0.10)) ;
+        var valorRoi = ((prejuizo - custoTotal) / custoTotal * 100);
+        var roiMonetario = ((prejuizo - custoTotal) / custoTotal);
         var ganhoLiquido = prejuizo - custoTotal;
        
+        // Variaveis formatadas
+        var porcent_vazamento = Number(porcentPerVazamento.toFixed(1));
+        var porcent_Total = Number(porcentTotal.toFixed(1));
+        var valor_Roi = Number(valorRoi.toFixed(1));
+        var roi_Monetario = Number(roiMonetario.toFixed(2)).toLocaleString("pt-BR", {style:"currency", currency: "BRL"});
+        var ganho_Liquido = Number(ganhoLiquido.toFixed(2)).toLocaleString("pt-BR", {style:"currency", currency: "BRL"});
+
         //
         
-        if(qtd_vazamentos == 0 || lucro == 0){
+        if(qtd_vazamentos == 0){
 
             alert("Insira os dados corretamente")
-        }else{
+        }
+        else if (lucro == 0) {
+
+            
+        }
+        else{
         
-        div_simulacao.innerHTML = `<p><b>Em um cenário <b style="color: blue;">provavel</b> o prejuízo por conta de um unico vazamento de amônia seria de:<br><b style="color: red;">R$${totalPerVazamento} milhões por vazamento</b>, isso corresponde a <b style="color: red;">${porcentPerVazamento}%</b> do lucro anual do frigorífico.</b></p>
+        div_simulacao.innerHTML = `<p><b>Em um cenário <b style="color: blue;">provavel</b> o prejuízo por conta de um único vazamento de amônia seria de:<br><b style="color: red;">R$${totalPerVazamento.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})} milhões por vazamento</b>, isso corresponde a <b style="color: red;">${porcent_vazamento}%</b> do lucro anual do frigorífico.</b></p>
             <p> Sendo: <br>
-            <b>R$${multas_Amb}</b> de multas, <b>R$${indeni}</b> de indenizações, <b>R$${medico}</b> com tratamento médico para os funcionarios, <b>R$${paraOpe}</b> por paradas de operação, <b>R$${perdaEstoque}</b> por perda de estoque, <b>R$${exportacao}</b> por impacto em exportações, <b>R$${rep}</b> por conta de perda de reputação e <b>R$${process}</b> por processos.</p>    
-            <p> O prejuízo total por conta de <b>${qtd_vazamentos}</b> vazamentos seria de <b style="color: red;">R$${total}</b> que corresponde a <b>${porcentTotal}%</b> do lucro do frigorífico. </p>
-            <p>Com isso seu frigorífico pode evitar <b style="color: red;">R$${prejuizo} em prejuízos</b></p> <p>O ROI do investimento é <b><u>${valorRoi}%</u></b>, ou seja a cada R$1 investido gera uma economia de <b style="color: green;">R$${roiMonetario}</b></p>
-        <p> Ganho líquido esperado: <b style="color: green;">R$${ganhoLiquido}</b></p>`
+            <b>${multas_Amb.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> de multas, <b>${indeni.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> de indenizações, <b>${medico.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> com tratamentos médico para os funcionários, <b>${paraOpe.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> por paradas de operação, <b>${perdaEstoque.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> por perda de estoque, <b>${exportacao.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> por impacto em exportações, <b>${rep.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> por conta de perda de reputação e <b>${process.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> por processos.</p>    
+            <p> O prejuízo total por conta de <b>${qtd_vazamentos}</b> vazamentos seria de <b style="color: red;">${total.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> que corresponde a <b>${porcent_Total}%</b> do lucro do frigorífico. </p>
+            <p>Com isso seu frigorífico pode evitar <b style="color: red;">${prejuizo.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})} em prejuízos</b></p> <p>O ROI do investimento é <b><u>${valor_Roi}%</u></b>, ou seja a cada R$1 investido gera uma economia de <b style="color: green;">${roi_Monetario}</b></p>
+        <p> Ganho líquido esperado: <b style="color: green;">R$${ganho_Liquido}</b></p>`
         }
     }
     
