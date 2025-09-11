@@ -9,7 +9,7 @@
 <body>
     <div class="header">
         <div class="titulo">
-            <img src="file:///C:/Users/Lucas%20Peres/Downloads/imagem_2025-09-03_200412929-removebg-preview.png" alt="" class="imagem">
+            <img src="Logo.png" alt="" class="imagem">
          <h1>Simulador financeiro</h1>
         <span style="width: 100px;"></span>
         </div>
@@ -28,7 +28,7 @@
     <br>
 
 
-    <button onclick="provavel()">Calculo provável</button>
+    <button onclick="calcular()">Cálculo de prejuízo</button>
     <br>
         <div id="div_simulacao"></div>
         <div id="div_limpo"></div>
@@ -49,7 +49,7 @@
 </html>
 <script>
 
-    function provavel() {
+    function calcular() {
         // Calculo de prejuizo
         var qtd_vazamentos = Number(ipt_qtd.value);
         var lucro = Number(ipt_lucroLiquido.value);
@@ -99,12 +99,12 @@
         }
         else{
         
-        div_simulacao.innerHTML = `<p><b>Em um cenário <b style="color: blue;">provavel</b> o prejuízo por conta de um único vazamento de amônia seria de:<br><b style="color: red;">R$${totalPerVazamento.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})} milhões por vazamento</b>, isso corresponde a <b style="color: red;">${porcent_vazamento}%</b> do lucro anual do frigorífico.</b></p>
+        div_simulacao.innerHTML = `<p><b>Baseado na média dos dados pesquisados o prejuízo por conta de um único vazamento de amônia seria de:<br><b style="color: red;">${totalPerVazamento.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})} milhões por vazamento</b>, isso corresponde a <b style="color: red;">${porcent_vazamento}%</b> do lucro anual do frigorífico.</b></p>
             <p> Sendo: <br>
             <b>${multas_Amb.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> de multas, <b>${indeni.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> de indenizações, <b>${medico.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> com tratamentos médico para os funcionários, <b>${paraOpe.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> por paradas de operação, <b>${perdaEstoque.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> por perda de estoque, <b>${exportacao.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> por impacto em exportações, <b>${rep.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> por conta de perda de reputação e <b>${process.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> por processos.</p>    
             <p> O prejuízo total por conta de <b>${qtd_vazamentos}</b> vazamentos seria de <b style="color: red;">${total.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})}</b> que corresponde a <b>${porcent_Total}%</b> do lucro do frigorífico. </p>
             <p>Com isso seu frigorífico pode evitar <b style="color: red;">${prejuizo.toLocaleString("pt-BR", {style:"currency", currency: "BRL"})} em prejuízos</b></p> <p>O ROI do investimento é <b><u>${valor_Roi}%</u></b>, ou seja a cada R$1 investido gera uma economia de <b style="color: green;">${roi_Monetario}</b></p>
-        <p> Ganho líquido esperado: <b style="color: green;">R$${ganho_Liquido}</b></p>`
+        <p> Ganho líquido esperado: <b style="color: green;">${ganho_Liquido}</b></p>`
         }
     }
     
