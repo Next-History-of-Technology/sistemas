@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeiro - Next History Technology</title>
+</head>
+<body>
+    <h1>Simulador Financeiro - Next History Technology</h1>
+    <hr>
+
+    <label for="espacoFrigorifico">Espaço do Frigorífico</label>
+    <select name="" id="espacoFrigorifico" onchange="alterarPlaceHolder()">
+        <option value="padrao" disabled selected>Escolha uma Opção</option>
+        <option value="pequeno">Pequeno</option>
+        <option value="medio">Médio</option>
+        <option value="grande">Grande</option>
+    </select>
+    <br><br>
+    <label for="sensoresCompra">Quantidade de Sensores para Comprar:</label>
+    <input type="number" name="" id="sensoresCompra" placeholder="Recomendado de 5 a 30+">
+    <br><br>
+    <label for="tempoContratoManutencao">Tempo de Contrato de Manutenção (meses):</label>
+    <input type="number" name="" id="tempoContratoManutencao" placeholder="Recomendação 6 a 18+">
+    <br><br>
+    <button onclick="calcularCompra()">Simular Compra</button>
+    <br><br>
+    <div id="div_text"></div>
+</body>
+</html>
+
+<script>
+    function alterarPlaceHolder() {
+        var option = espacoFrigorifico.value
+        var sensoresC = sensoresCompra
+        var tempCM = tempoContratoManutencao
+        if (option == 'pequeno') {
+            sensoresC.placeholder = 'De 5 a 10 Sensores'
+            tempCM.placeholder = 'Recomendação 6 meses'
+        }
+        if (option == 'medio') {
+            sensoresC.placeholder = 'De 10 a 20 Sensores'
+            tempCM.placeholder = 'Recomendação 12 meses'
+        }
+        if (option == 'grande') {
+            sensoresC.placeholder = 'De 20 a 30+ Sensores'
+            tempCM.placeholder = 'Recomendação 18 meses'
+        }
+    }
+    function calcularCompra() {
+        var sensoresC = Number(sensoresCompra.value)
+        var tempCM = Number(tempoContratoManutencao.value)
+        var espacoF = espacoFrigorifico.value
+
+        var valorArduino = 150 * sensoresC
+        var valorSensor = 25 * sensoresC
+        var equipamentos = 30 * sensoresC
+
+        var valorServico = 0
+
+        var valorContratoManutencao = 0
+        var valorBancoDeDados = 0
+        var valorHospedagem = 0
+
+        if (espacoF == 'pequeno') {
+            valorServico = 500 * sensoresC
+            valorContratoManutencao = 500
+            valorBancoDeDados = 100
+            valorHospedagem = 50
+            var prejuAmbiental1 = 150000
+            var prejuAmbiental2 = 300000
+            var prejuSaudeOcupacional1 = 40000
+            var prejuSaudeOcupacional2 = 100000
+            var prejuParalizacaoOperacional = 80000
+            var prejuImagem = 300000
+        }
+        if (espacoF == 'medio') {
+            valorServico = 1000 * sensoresC
+            valorContratoManutencao = 1000
+            valorBancoDeDados = 200
+            valorHospedagem = 100
+            var prejuAmbiental1 = 300000
+            var prejuAmbiental2 = 600000
+            var prejuSaudeOcupacional1 = 80000
+            var prejuSaudeOcupacional2 = 170000
+            var prejuParalizacaoOperacional = 150000
+            var prejuImagem = 600000
+        }
+        if (espacoF == 'grande') {
+            valorServico = 1500 * sensoresC
+            valorContratoManutencao = 1500
+            valorBancoDeDados = 300
+            valorHospedagem = 150
+            var prejuAmbiental1 = 600000
+            var prejuAmbiental2 = 1000000
+            var prejuSaudeOcupacional1 = 150000
+            var prejuSaudeOcupacional2 = 250000
+            var prejuParalizacaoOperacional = 300000
+            var prejuImagem = 1000000
+        }
+
+        var prejuAmbiental1Editado = prejuAmbiental1.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})
+        var prejuAmbiental2Editado = prejuAmbiental2.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})
+        var prejuSaudeOcupacional1Editado = prejuSaudeOcupacional1.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})
+        var prejuSaudeOcupacional2Editado = prejuSaudeOcupacional2.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})
+        var prejuParalizacaoOperacionalEditado = prejuParalizacaoOperacional.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})
+        var prejuImagemEditado = prejuImagem.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})
+
+        var prejuTotal = (prejuAmbiental1 + prejuAmbiental2 + prejuSaudeOcupacional1 + prejuSaudeOcupacional2 + prejuParalizacaoOperacional + prejuImagem).toLocaleString('pt-BR', {style:"currency", currency:"BRL"})
+
+        var totalPagarFixo = (valorArduino + valorSensor + equipamentos + valorServico)
+        var totalPagarMensal = (valorContratoManutencao + valorBancoDeDados + valorHospedagem)
+
+        // div_text.innerHTML = `Testando o Valor Total Fixo R$${totalPagarFixo.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})} e o Valor Total Mensal R$${totalPagarMensal.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})}`
+
+        valorTotalPrimario = (totalPagarFixo + totalPagarMensal)
+        valorTotalPrimarioEditado = valorTotalPrimario.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})
+
+        valorTotalPagarFixoEditado = totalPagarFixo.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})
+        valorTotalPagarMensalEditado = totalPagarMensal.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})
+
+        div_text.innerHTML = `
+            <h3>Resultado da Simulação</h3>
+            <p><span style="font-weight:bold;">Valor Total Inicial (Fixo):</span> ${valorTotalPagarFixoEditado}</p>
+            <p><span style="font-weight:bold;">Valor Mensal Recorrente:</span> ${valorTotalPagarMensalEditado}</p>
+            <p><span style="font-weight:bold;">Primeiro Pagamento (Inicial + 1ª mensalidade):</span> ${valorTotalPrimarioEditado}</p>
+            
+            <hr>
+            <h3>O que está sendo considerado:</h3>
+            <p><span style="font-weight:bold;">  * Arduino UNO R3:</span> R$ 150,00 por unidade (controlador principal de cada ponto de medição).</p>
+            <p><span style="font-weight:bold;">  * Sensor MQ-2:</span> R$ 25,00 por unidade (sensor de dectecção de gás amônia).</p>
+            <p><span style="font-weight:bold;">  * Acessórios:</span> R$ 30,00 por unidade (protoboard, jumpers, fonte de energia).</p>
+            <p><span style="font-weight:bold;">  * Serviço de Instalação:</span> varia conforme o porte do frigorífico (${espacoF}).</p>
+            <p><span style="font-weight:bold;">  * Contrato de Manutenção:</span> ${valorContratoManutencao.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})} mensais (valor simulando a contratação de outra empresa).</p>
+            <p><span style="font-weight:bold;">  * Banco de Dados:</span> ${valorBancoDeDados.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})} mensais (armazenamento seguro das leituras dos sensores).</p>
+            <p><span style="font-weight:bold;">  * Hospedagem do Site:</span> ${valorHospedagem.toLocaleString('pt-BR', {style:"currency", currency:"BRL"})} mensais (plataforma de visualização e relatórios).</p>
+            
+            <p>Esses valores são estimativas médias de mercado, podendo variar conforme fornecedores e escala de projeto.</p>
+
+            <hr>
+            
+            <h3>Benefícios do Sistema</h3>
+            <p>Mesmo em frigoríficos de pequeno porte, os riscos de multas ambientais podem ultrapassar <span style="color: #f00; font-weight:bold;">${prejuAmbiental1Editado}</span> em cenários conservadores e chegar a <span style="color: #f00; font-weight:bold;">${prejuAmbiental2Editado}</span> em casos críticos.</p>
+            <p>Além disso, problemas de saúde ocupacional podem gerar custos de internações e atendimentos médicos, variando de <span style="color: #f00; font-weight:bold;">${prejuSaudeOcupacional1Editado}</span> a <span style="color: #f00; font-weight:bold;">${prejuSaudeOcupacional2Editado}</span>, sem contar possíveis indenizações trabalhistas.</p>
+            <p>Com a implementação do sistema, é possível reduzir drasticamente a chance de paralisações operacionais que poderiam custar até <span style="color: #f00; font-weight:bold;">${prejuParalizacaoOperacionalEditado}</span>, além de proteger a reputação da empresa, que em casos graves pode gerar perdas de imagem superiores a <span style="color: #f00; font-weight:bold;">${prejuImagemEditado}</span>.</p>
+            <p>Podendo economizar um valor total de <span style="color: #005500; font-weight:bold;">${prejuTotal}</span> evitando possíveis vazamentos com o nosso sistema.
+        `
+
+        // Arduino UNO R3 (R$120 a R$180)
+        // MQ-2 (R$20 a R$30)
+        // Protoboard, jumpers, fonte 5V (R$30)
+        // TOTAL por ponto (R$170 a R$210)
+
+        // Banco de dados em Nuvem (R$100 a R$300 Mensal)
+        // Hospedagem do Site (R$50 a R$150 Mensal)
+        // TOTAL (R$150 a R$450 Mensal)
+
+        // Tempo de Contrato para Manutenção (R$500 a R$1500 Mensal)
+
+    }
+</script>
