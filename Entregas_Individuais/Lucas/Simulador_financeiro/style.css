@@ -1,0 +1,21 @@
+
+.titulo{
+
+        justify-content: center;
+        text-align: center;
+        color: black;
+        
+}
+
+.subtitulo{
+        
+        justify-content: center;
+        text-align: center;
+        color: blueviolet;
+}
+
+.borda{
+        border-bottom: 1px solid #413e3e;
+        padding-bottom: 5px ;
+
+}
