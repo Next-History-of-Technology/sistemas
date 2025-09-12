@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h1>Simulador finaceiro</h1>
+      <h2>Next History Technology</h2>
+    </div>
+
+    <br />
+
+    <div>
+      <h3>Simulação de prejuízo anual</h3>
+
+      <label for="ipt_qtd">Insira a quantidade de vazamentos por ano:</label>
+      <input type="number" placeholder="Vazamentos por ano" id="ipt_qtd" />
+      <br />
+      <br />
+      <label for="ipt_receita"
+        >Insira o lucro líquido anual da sua empresa (em milhões):</label>
+      <input type="number" placeholder="Lucro líquido" id="ipt_lucroLiquido" />
+      <br />
+      <br />
+
+      <button onclick="provavel()">Calculo provavel</button>
+      <br />
+      <div id="div_mensagem_erro"></div>
+      <div id="div_simulacao"></div>
+      <br />
+      <br />
+
+      <button onclick="Limpar()">Limpar simulação</button>
+      <br />
+      <br />
+      <br />
+    </div>
+  </body>
+</html>
+<script>
+  function provavel() {
+    var a = Number(ipt_qtd.value);
+    var b = Number(ipt_lucroLiquido.value);
+
+    var total =
+      500000 + 300000 + 100000 + 150000 + 1000000 + 1500000 + 200000 + 350000;
+    var t_total = total * a;
+
+    if (a == 0 || b == 0) {
+      div_mensagem_erro.innerHTML = "Insira os dados corretamente";
+      div_simulacao.innerHTML = "";
+    } else {
+      div_mensagem_erro.innerHTML = "";
+      div_simulacao.innerHTML = `<p>O prejuízo anual total é de <b>${t_total.toLocaleString(
+        "pt-BR",
+        { style: "currency", currency: "BRL" }
+      )}</b>.</p>`;
+    }
+  }
+
+  function Limpar() {
+    div_simulacao.innerHTML = "";
+    div_mensagem_erro.innerHTML = "";
+  }
+</script>
