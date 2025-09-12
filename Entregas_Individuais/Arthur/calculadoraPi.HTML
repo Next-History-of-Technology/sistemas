@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<h2> Calculadora Financeira </h2>
+
+<div>
+  <label>Faturamento Anual da Empresa (R$):</label><br>
+  <input id="rendaInput" type="number"> <br><br>
+</div>
+
+<div>
+  <button onclick="calcular('multas')">Multas Ambientais</button>
+  <button onclick="calcular('indenizacoes')">Indenizações Trabalhistas</button>
+  <button onclick="calcular('atendimento')">Custos com Atendimento Médico</button>
+  <button onclick="calcular('paralizacoes')">Paralisações Operacionais</button>
+  <button onclick="calcular('reputacao')">Danos à Reputação</button>
+  <button onclick="calcular('juridicos')">Custos Jurídicos</button>
+  <button onclick="calcular('sistema')">Implementação Sistema de Detecção</button>
+  <button onclick="calcular('manutencao')">Manutenção</button>
+</div>
+
+<br>
+
+<div id="resultado"></div>
+
+<script>
+function calcular () {
+  var renda = Number(rendaInput.value)
+  if (renda <= 0) {
+    resultado.innerHTML = "Digite uma renda válida!"
+  }
+  else {
+  var gasto = 0
+  var nome = ""
+
+  if (categoria == 'multas') { gasto = 1000000; nome = "Multas Ambientais"; }
+  if (categoria == 'indenizacoes') { gasto = 552000; nome = "Indenizações Trabalhistas"; }
+  if (categoria == 'atendimento') { gasto = 200000; nome = "Custos com Atendimento Médico"; }
+  if (categoria == 'paralizacoes') { gasto = 300000; nome = "Paralisações Operacionais"; }
+  if (categoria == 'reputacao') { gasto = 500000; nome = "Danos à Reputação"; }
+  if (categoria == 'juridicos') { gasto = 200000; nome = "Custos Jurídicos"; }
+  if (categoria == 'sistema') { gasto = 500000; nome = "Implementação Sistema de Detecção"; }
+  if (categoria == 'manutencao') { gasto = 50000; nome = "Manutenção"; }
+
+  var sobra = renda - gasto
+  var porcentagem = (gasto / renda) * 100
+  }
+  resultado.innerHTML = `
+    Categoria: ${nome} <br>
+    Gasto: R$ ${gasto} <br>
+Faturamento Restante: R$ ${sobra} <br>
+    Perda em porcentagem da renda: ${porcentagem} %
+  `
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+    
+</body>
+</html>
